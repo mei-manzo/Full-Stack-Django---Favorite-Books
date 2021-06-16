@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'background-color.css' %}">   
+    <title>Edit Book</title>
+</head>
+<body>
+<h1>Edit Book</h1><a href= "">Go back</a>
+<!-- {% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+    {% endfor %}
+</ul>
+{% endif %} -->
+<form action="" method='POST'>
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    <input class="title" type="text" name = "title" value = "{{ updated_show.title }}">
+    <br><br>
+    <label for="network">Network:</label>
+    <input class="network" type="text" name = "network" value = "{{ updated_show.network }}">
+    <br><br>
+    <label for="release-date">Release Date:</label>
+    <input type="date" id="release-date" name="release-date" value = "{{ updated_show.release_date|date:'Y-m-d' }}">
+    <p class = "description">Description:</p>
+    <textarea name="description">{{ updated_show.description }}</textarea>
+    <br><br> 
+    <input type="submit" value="Update" id = "button">
+    <br><br> 
+    <a href= "">Go to Show</a>
+</form>
+</body>
+</html> 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'background-color.css' %}">   
+    <title>Add a New Book</title>
+</head>
+<body>
+<header id="add-header">
+    <h1 id="welcome-add">Welcome, {{ current_user.first_name }}</h1>
+    <a id = "logout-add" href="http://localhost:8000/logout">Logout</a>
+</header>
+<h1>Add a Favorite Book</h1>
+{% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+    {% endfor %}
+</ul>
+{% endif %}
+    <form action="/check_book" method='POST'>
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input class="title" type="text" name = "title">
+        <br><br>
+        <p id = "description">Description:</p>
+        <textarea name="description"></textarea>
+        <br><br> 
+        <input type="submit" value="Add" id = "button">
+    </form>
+</body>
+</html> 

@@ -1,0 +1,17 @@
+body{
+    background-color:rgb(148, 187, 148);
+}
+
+#add-header{
+    display: flex;
+}
+
+#welcome-add{
+    flex: 1;
+
+}
+
+#logout-add{
+    flex: 1;
+
+}
