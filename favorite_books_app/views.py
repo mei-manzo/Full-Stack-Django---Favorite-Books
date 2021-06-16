@@ -48,8 +48,13 @@ def check_book(request):
                 messages.error(request, value)
             return redirect('/add')
         #if no issues, create a book
-        #need to pass book into to all
-        return redirect('/all')
+        Book.objects.create(title=request.POST['title'], description=request.POST['description'])
+        new_book = Book.objects.last() #might need to refine this, change to get request.session
+        #create automatic relationship between user and book
+        this_user = User.objects.get(id = request.session['user_id'])
+        this_user.books.add(new_book)
+        return redirect(f"/all/{new_book.id}") 
+
 
 def add(request):
     if 'user_id' not in request.session:
@@ -67,5 +72,12 @@ def logout(request):
 def update(request):
     return render(request, "edit_book.html")
 
-def all(request):
-    return render(request, "view_book.html")
+def all(request, id):
+    # if 'user_id' not in request.session:
+    #     return redirect('/')
+    # this_user = User.objects.filter(id = id)
+    context = {
+        "all_books": Book.objects.all(),
+        "current_user" : User.objects.filter(id = id)
+    }
+    return render(request, "view_book.html", context)

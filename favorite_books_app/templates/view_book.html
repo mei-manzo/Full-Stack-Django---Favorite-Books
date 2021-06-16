@@ -9,14 +9,36 @@
     <title>Books</title>
 </head>
 <body>
-<h1>Books </h1> <a href= "">Go back</a>
-    <p>Title: {{ this_show.title }}</p>
-    <p>Network: {{ this_show.network }}</p>
-    <p>Release Date: {{ this_show.release_date }}</p>
-    <p>Description: {{ this_show.description }}</p>
+    <header id="add-header">
+        <h1 id="welcome-add">Welcome, {{ current_user.first_name }}</h1>
+        <a id = "logout-add" href="http://localhost:8000/logout">Logout</a>
+    </header>
+    <h1>Books </h1> <a href= "">Go back</a>
+    <p>Title: {{ new_book.title }}</p>
+    <p>Description: {{ new_book.description }}</p>
     <br><br><br>
-    <p>Last Updated: {{ this_show.updated_at }}</p>
+    <p>Last Updated: {{ new_book.updated_at }}</p>
     <a href="http://localhost:8000/shows/{{ this_show.id }}/edit">Edit</a>
     <a href="http://localhost:8000/shows/{{ this_show.id }}/destroy">Delete</a>
+    <h1>All Books</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Network</th>
+                <th>Release Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for books in all_books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.description }}</td>
+                <td><a href = "">Show</a></td><td><a href = "">Edit</a></td><td><a href = "">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html> 
