@@ -47,7 +47,6 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add = True)
-    # books = models.ManyToManyField(Book, related_name="Users")
     objects = UserManager()
 
 class Book(models.Model):
@@ -56,6 +55,6 @@ class Book(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # upload_status = models.ForeignKey(User, related_name="books", on_delete = models.CASCADE, default = 'null')
+    upload_status = models.ForeignKey(User, related_name="books", on_delete = models.CASCADE, null = True)
     users = models.ManyToManyField(User, related_name="Books")
     objects = BookManager()

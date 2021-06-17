@@ -31,3 +31,16 @@ body{
 .bold{
     font-weight:bolder;
 }
+
+#add-book-container{
+    display: flex;
+}
+
+.italics{
+    font-style: italic;
+}
+
+.sub{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

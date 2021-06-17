@@ -33,13 +33,24 @@
             <input type="submit" value="Add" id = "button">
         </form>
         <div id="all-books-add">
-            <h1>All Books</h1>
+            <h1>All Books </h1>
                 {% for book in all_books %}
-                    <p class="bold">"{{ book.title }}" uploaded by {{ book. }}<p>
-                    <p>{{ book.description }}<p>
-                    <div id="view-links">
-                        <a href = "">Show</a> | <a href ="">Edit</a> | <a href = "">Delete</a>
-                    </div>
+                    {% if current_user.first_name == book.upload_status.first_name %}
+                        <p class="bold">"{{ book.title }}"</p>
+                        <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>
+                        <p class = "sub">"{{ book.description }}"</p>
+                        <p class = "sub" class="italics">This is one of your favorites</p>
+                        <div id="view-links">
+                            <a href = "">Show</a> | <a href ="">Edit</a> | <a href = "">Delete</a>
+                        </div>
+                    {% else %}
+                        <p class="bold">"{{ book.title }}"</p>
+                        <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>
+                        <p class = "sub">"{{ book.description }}"</p>
+                        <div id="view-links">
+                            <a href = "">Show</a> | <a href ="">Edit</a> | <a href = "">Delete</a>
+                        </div>
+                    {% endif %}
                 {% endfor %}
         </div>
     </div>
