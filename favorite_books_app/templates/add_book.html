@@ -21,15 +21,27 @@
     {% endfor %}
 </ul>
 {% endif %}
-    <form action="/check_book" method='POST'>
-        {% csrf_token %}
-        <label for="title">Title:</label>
-        <input class="title" type="text" name = "title">
-        <br><br>
-        <p id = "description">Description:</p>
-        <textarea name="description"></textarea>
-        <br><br> 
-        <input type="submit" value="Add" id = "button">
-    </form>
+    <div id="add-book-container">
+        <form action="/check_book" method='POST' id="add-form">
+            {% csrf_token %}
+            <label for="title">Title:</label>
+            <input class="title" type="text" name = "title">
+            <br><br>
+            <p id = "description">Description:</p>
+            <textarea name="description"></textarea>
+            <br><br> 
+            <input type="submit" value="Add" id = "button">
+        </form>
+        <div id="all-books-add">
+            <h1>All Books</h1>
+                {% for book in all_books %}
+                    <p class="bold">"{{ book.title }}" uploaded by {{ book. }}<p>
+                    <p>{{ book.description }}<p>
+                    <div id="view-links">
+                        <a href = "">Show</a> | <a href ="">Edit</a> | <a href = "">Delete</a>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
 </body>
 </html> 

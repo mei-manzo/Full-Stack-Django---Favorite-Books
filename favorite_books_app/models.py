@@ -38,16 +38,8 @@ class BookManager(models.Manager): #title required # desc at least 5 chars
         if len(postData['description']) <5:
             errors["description"]="Description must be at least 5 characters."
         return errors
-    
-        # user_likes = models.ManyToManyField(User, related_name='liked_posts')
-class Book(models.Model):
-    title = models.CharField(max_length= 255)
-    author = models.CharField(max_length=255)
-    description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = BookManager()
 
+#add a one to many relationship for upload_status
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -55,5 +47,15 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add = True)
-    books = models.ManyToManyField(Book, related_name="Users")
+    # books = models.ManyToManyField(Book, related_name="Users")
     objects = UserManager()
+
+class Book(models.Model):
+    title = models.CharField(max_length= 255)
+    author = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # upload_status = models.ForeignKey(User, related_name="books", on_delete = models.CASCADE, default = 'null')
+    users = models.ManyToManyField(User, related_name="Books")
+    objects = BookManager()

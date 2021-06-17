@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from .models import *
-from django.contrib import messages
 
 def index(request):
     return render(request, "login.html")
@@ -61,7 +60,9 @@ def add(request):
         return redirect('/')
     this_user = User.objects.filter(id = request.session['user_id'])
     context = {
-        "current_user" : this_user[0] #grabs from session rather than database to prevent refreshing into login
+        "current_user" : this_user[0], #grabs from session rather than database to prevent refreshing into login
+        "current_book": Book.objects.last(),
+        "all_books": Book.objects.all(),
         }
     return render(request, "add_book.html", context)
 
@@ -73,11 +74,12 @@ def update(request):
     return render(request, "edit_book.html")
 
 def all(request, id):
-    # if 'user_id' not in request.session:
-    #     return redirect('/')
-    # this_user = User.objects.filter(id = id)
+    if 'user_id' not in request.session:
+        return redirect('/')
+    this_user = User.objects.filter(id = request.session['user_id'])
     context = {
+        "current_user" : this_user[0], #grabs from session rather than database to prevent refreshing into login
+        "current_book": Book.objects.last(),
         "all_books": Book.objects.all(),
-        "current_user" : User.objects.filter(id = id)
-    }
+        }
     return render(request, "view_book.html", context)
