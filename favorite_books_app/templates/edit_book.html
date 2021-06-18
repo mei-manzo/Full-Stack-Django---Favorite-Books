@@ -9,7 +9,8 @@
     <title>Edit Book</title>
 </head>
 <body>
-<h1>Edit Book</h1><a href= "">Go back</a>
+<h1 id="welcome-add">Welcome, {{ current_user.first_name }}</h1>
+<h1>Edit Book</h1>
 <!-- {% if messages %}
 <ul class="messages">    
     {% for message in messages %}    
@@ -17,7 +18,7 @@
     {% endfor %}
 </ul>
 {% endif %} -->
-<a id = "logout-add" href="http://localhost:8000/logout">Logout</a>
+<a href= "http://localhost:8000/books">Go back</a> | <a id = "logout-add" href="http://localhost:8000/logout">Logout</a> 
 <form action="" method='POST'>
     {% csrf_token %}
     <label for="title">Title:</label>
@@ -35,5 +36,9 @@
     <br><br> 
     <a href= "">Go to Show</a>
 </form>
+<h1>Users who like this Book:</h1>
+{% for user in book_likers %}
+    <p> {{ user.first_name }} </p>
+{% endfor %}
 </body>
 </html> 

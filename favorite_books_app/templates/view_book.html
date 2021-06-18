@@ -26,6 +26,8 @@
             <h1>Users who like this Book:</h1>
             {% for user in book_likers %}
                 <p> {{ user.first_name }} </p>
+                <!-- {% if current_user.id %}
+                {% endif %} -->
             {% endfor %}
         </div> 
     </div>
