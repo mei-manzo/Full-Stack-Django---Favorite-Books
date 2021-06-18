@@ -16,10 +16,17 @@ body{
     flex: 1;
 }
 
-#all-book-container{
+#all-books-container{
     display: flex;
 }
 
+#current-book{
+    flex: 1;
+}
+
+#users-view{
+    flex: 1;
+}
 #add-form{
     flex:1;
 }
@@ -29,6 +36,7 @@ body{
 }
 
 .bold{
+    margin-top: 20px;
     font-weight:bolder;
 }
 

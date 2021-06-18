@@ -21,9 +21,14 @@ class UserManager(models.Manager):
         
     def login_validator(self, postData):
         errors = {}
+        email = postData['email']
         existing_user = User.objects.filter(email=postData['email'])
         if len(postData['email']) == 0:
             errors['email'] = "Must enter an email"
+            return errors
+        if len(User.objects.filter(email=email)) == 0:
+            errors['email'] = "Email is not registered"
+            return errors
         if len(postData['password']) < 8:
             errors['password'] = "Must enter a password 8 characters or longer"
         elif bcrypt.checkpw(postData['password'].encode(), existing_user[0].password.encode()) != True:

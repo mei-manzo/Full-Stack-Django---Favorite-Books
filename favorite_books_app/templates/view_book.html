@@ -15,23 +15,19 @@
     </header>
     <div id="all-books-container">
         <div id="current-book">
-            <h1>Books</h1> <a href= "">Go back</a>
-            <p>Title: {{ current_book.title }}</p>
-            <p>Description: {{ current_book.description }}</p>
-            <p>Last Updated: {{ current_book.updated_at }}</p>
+            <h1>View Book</h1> <a href= "http://localhost:8000/books">Go back</a>
+            <p>Title: {{ clicked_book.title }}</p>
+            <p>Description: {{ clicked_book.description }}</p>
+            <p>Last Updated: {{ clicked_book.updated_at }}</p>
             <a href="http://localhost:8000/shows/{{ this_show.id }}/edit">Edit</a>
             <a href="http://localhost:8000/shows/{{ this_show.id }}/destroy">Delete</a>
-        </div>  
-        <div id="all-books-mini">
-            <h1>All Books</h1>
-                {% for book in all_books %}
-                    <p class="bold">{{ book.title }}<p>
-                    <p>{{ book.description }}<p>
-                    <div id="view-links">
-                        <a href = "">Show</a> | <a href ="">Edit</a> | <a href = "">Delete</a>
-                    </div>
-                {% endfor %}
-        </div>
+        </div> 
+        <div id="users-view">
+            <h1>Users who like this Book:</h1>
+            {% for user in book_likers %}
+                <p> {{ user.first_name }} </p>
+            {% endfor %}
+        </div> 
     </div>
 </body>
 </html> 

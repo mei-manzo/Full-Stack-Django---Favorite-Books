@@ -70,13 +70,40 @@ def logout(request):
 def update(request):
     return render(request, "edit_book.html")
 
-def all(request, id):
+def books_all(request, id):
     if 'user_id' not in request.session:
         return redirect('/')
     this_user = User.objects.filter(id = request.session['user_id'])
+    clicked_book = Book.objects.get(id=id)
+    book_likers = clicked_book.users.all()
     context = {
-        "current_user" : this_user[0], #grabs from session rather than database to prevent refreshing into login
-        "current_book": Book.objects.last(),
+        "current_user" : this_user[0], 
         "all_books": Book.objects.all(),
+        "clicked_book": clicked_book,
+        "book_likers": book_likers,
         }
     return render(request, "view_book.html", context)
+
+def add_favorite(request, id):
+    if 'user_id' not in request.session:
+        return redirect('/')
+    this_user = User.objects.filter(id = request.session['user_id'])
+    clicked_book = Book.objects.get(id=id) #getting clicked book
+    #need to add book to User's liked books
+    clicked_book.users.add(this_user[0])
+    return redirect('/books')
+
+def was_favorited_check(request, id):
+    #check if book was favorited. if so, show edit page
+    if 'user_id' not in request.session:
+        return redirect('/')
+    this_user = User.objects.filter(id = request.session['user_id'])
+    clicked_book = Book.objects.get(id=id) #getting clicked book
+    #need to have this correctly match up with what's inside
+    if this_user in clicked_book.users.all():
+        return render (request, "view_book.html")
+    elif this_user not in clicked_book.users.all():
+        return redirect (f"/books/{id}")
+    else:
+        return redirect ("/books")
+    #if not favorited, show view page. 
