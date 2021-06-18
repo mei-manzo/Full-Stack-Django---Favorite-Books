@@ -11,34 +11,34 @@
 <body>
 <h1 id="welcome-add">Welcome, {{ current_user.first_name }}</h1>
 <h1>Edit Book</h1>
-<!-- {% if messages %}
+{% if messages %}
 <ul class="messages">    
     {% for message in messages %}    
         <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
     {% endfor %}
 </ul>
-{% endif %} -->
+{% endif %}
 <a href= "http://localhost:8000/books">Go back</a> | <a id = "logout-add" href="http://localhost:8000/logout">Logout</a> 
-<form action="" method='POST'>
+<form action="/update/{{ clicked_book.id }}" method='POST'>
     {% csrf_token %}
     <label for="title">Title:</label>
-    <input class="title" type="text" name = "title" value = "{{ updated_show.title }}">
+    <input class="title" type="text" name = "title" value="{{ clicked_book.title }}">
     <br><br>
-    <label for="network">Network:</label>
-    <input class="network" type="text" name = "network" value = "{{ updated_show.network }}">
-    <br><br>
-    <label for="release-date">Release Date:</label>
-    <input type="date" id="release-date" name="release-date" value = "{{ updated_show.release_date|date:'Y-m-d' }}">
+    <p>Added by: {{ clicked_book.upload_status.first_name }}</p>
+    <p>Added on: {{ clicked_book.created_at }}</p>
+    <p>Last updated: {{clicked_book.updated_at }}</p>
     <p class = "description">Description:</p>
-    <textarea name="description">{{ updated_show.description }}</textarea>
+    <textarea name="description">{{ clicked_book.description }}</textarea>
     <br><br> 
-    <input type="submit" value="Update" id = "button">
+    <input type="submit" value="Update" id = "button"> | <a href= "http://localhost:8000/delete">Delete</a>
     <br><br> 
-    <a href= "">Go to Show</a>
 </form>
 <h1>Users who like this Book:</h1>
 {% for user in book_likers %}
     <p> {{ user.first_name }} </p>
+    {% if current_user.first_name == user.first_name %}
+    <a href= "http://localhost:8000/unfavorite/{{ clicked_book.id }}">Unfavorite</a>
+    {% endif %} 
 {% endfor %}
 </body>
 </html> 

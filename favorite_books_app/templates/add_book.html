@@ -40,11 +40,12 @@
                         <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>
                         <p class = "sub">"{{ book.description }}"</p>
                         <p class = "sub" class="italics">This is one of your favorites</p>
-                    {% elif current_user.id in book_likers %}
-                    <a class = "bold" href = "http://localhost:8000/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
-                    <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>
-                    <p class = "sub">"{{ book.description }}"</p>
-                    <p class = "sub" class="italics">NEW ADDED FAVE</p>
+                        <p> {{ book.updated_at }}</p>
+                    {% elif current_user.first_name == book.users.first_name %}
+                        <a class = "bold" href = "http://localhost:8000/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
+                        <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>
+                        <p class = "sub">"{{ book.description }}"</p>
+                        <p class = "sub" class="italics">NEW ADDED FAVE</p>
                     {% else %}
                         <a class = "bold" href = "http://localhost:8000/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
                         <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>

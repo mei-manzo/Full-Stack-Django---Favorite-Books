@@ -19,17 +19,20 @@
             <p>Title: {{ clicked_book.title }}</p>
             <p>Description: {{ clicked_book.description }}</p>
             <p>Last Updated: {{ clicked_book.updated_at }}</p>
-            <a href="http://localhost:8000/shows/{{ this_show.id }}/edit">Edit</a>
-            <a href="http://localhost:8000/shows/{{ this_show.id }}/destroy">Delete</a>
+            <a href="">Edit</a>
+            <a href="">Delete</a>
         </div> 
         <div id="users-view">
             <h1>Users who like this Book:</h1>
             {% for user in book_likers %}
                 <p> {{ user.first_name }} </p>
-                <!-- {% if current_user.id %}
-                {% endif %} -->
+                {% if current_user.first_name == user.first_name %}
+                <a href= "http://localhost:8000/unfavorite/{{ clicked_book.id }}">Unfavorite</a>
+                {% endif %}
             {% endfor %}
         </div> 
     </div>
+    <br><br>
+    <a href = "http://localhost:8000/add_favorite_book/{{ clicked_book.id }} ">Add to favorites</a> 
 </body>
 </html> 

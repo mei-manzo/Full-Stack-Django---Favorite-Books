@@ -67,8 +67,19 @@ def logout(request):
     request.session.flush()
     return redirect('/')
 
-def update(request):
-    return render(request, "edit_book.html")
+def update(request, id):
+    errors = Book.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f"/was_favorited_check/{id}")
+    else:
+        clicked_book = Book.objects.get(id=id)
+        clicked_book.title=request.POST['title']
+        clicked_book.description=request.POST['description']
+        clicked_book.save()
+        messages.success(request, "Favorite book successfully updated")
+        return redirect("/books")
 
 def books_all(request, id):
     if 'user_id' not in request.session:
@@ -83,7 +94,6 @@ def books_all(request, id):
         "book_likers": book_likers,
         }
     return render(request, "view_book.html", context)
-
 
 def add_favorite_book(request, id):
     if 'user_id' not in request.session:
@@ -102,19 +112,34 @@ def was_favorited_check(request, id):
     book_likers = clicked_book.users.all()
     all_books= Book.objects.all()
     current_user = this_user[0]
-    # {% if current_user.first_name == book.upload_status.first_name %}
     # for book in all_books:
     if current_user.id == clicked_book.upload_status.id:
         context = {
             "current_user" : this_user[0], 
             "book_likers": book_likers,
+            "clicked_book": Book.objects.get(id=id),
         }
         return render (request, "edit_book.html", context)
-#if liked, show edit- change to upload
+#if uploaded, show edit form:
     else:
         context = {
             "current_user" : this_user[0], 
             "book_likers": book_likers,
+            "clicked_book": Book.objects.get(id=id),
         }
         return redirect (f"/books/{id}")
-    # return redirect ("/books")
+
+def delete(request, id):
+    if request.method == 'GET':
+        d = Book.objects.get(id=id)
+        d.delete()
+        return redirect('books')
+    return redirect('books')
+
+def unfavorite(request, id):
+    if 'user_id' not in request.session:
+        return redirect('/')
+    this_user = User.objects.filter(id = request.session['user_id'])
+    clicked_book = Book.objects.get(id=id) #getting clicked book
+    clicked_book.users.remove(this_user[0])
+    return redirect('/books')
