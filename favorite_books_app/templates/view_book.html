@@ -11,11 +11,11 @@
 <body>
     <header id="add-header">
         <h1 id="welcome-add">Welcome, {{ current_user.first_name }}</h1>
-        <a id = "logout-add" href="http://localhost:8000/logout">Logout</a>
+        <a id = "logout-add" href="/logout">Logout</a>
     </header>
     <div id="all-books-container">
         <div id="current-book">
-            <h1>View Book</h1> <a href= "http://localhost:8000/books">Go back</a>
+            <h1>View Book</h1> <a href= "/books">Go back</a>
             <p>Title: {{ clicked_book.title }}</p>
             <p>Description: {{ clicked_book.description }}</p>
             <p>Last Updated: {{ clicked_book.updated_at }}</p>
@@ -25,12 +25,12 @@
             {% for user in book_likers %}
                 <p> {{ user.first_name }} </p>
                 {% if current_user.first_name == user.first_name %}
-                <a href= "http://localhost:8000/unfavorite/{{ clicked_book.id }}">Unfavorite</a>
+                <a href= "/unfavorite/{{ clicked_book.id }}">Unfavorite</a>
                 {% endif %}
             {% endfor %}
         </div> 
     </div>
     <br><br>
-    <a href = "http://localhost:8000/add_favorite_book/{{ clicked_book.id }} ">Add to favorites</a> 
+    <a href = "/add_favorite_book/{{ clicked_book.id }} ">Add to favorites</a> 
 </body>
 </html> 

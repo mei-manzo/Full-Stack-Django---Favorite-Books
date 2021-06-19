@@ -18,7 +18,7 @@
     {% endfor %}
 </ul>
 {% endif %}
-<a href= "http://localhost:8000/books">Go back</a> | <a id = "logout-add" href="http://localhost:8000/logout">Logout</a> 
+<a href= "/books">Go back</a> | <a id = "logout-add" href="/logout">Logout</a> 
 <form action="/update/{{ clicked_book.id }}" method='POST'>
     {% csrf_token %}
     <label for="title">Title:</label>
@@ -30,14 +30,14 @@
     <p class = "description">Description:</p>
     <textarea name="description">{{ clicked_book.description }}</textarea>
     <br><br> 
-    <input type="submit" name ="update-btn" value="Update" id = "button"> | <a href= "http://localhost:8000/delete/{{ clicked_book.id }}">Delete</a>
+    <input type="submit" name ="update-btn" value="Update" id = "button"> | <a href= "/delete/{{ clicked_book.id }}">Delete</a>
     <br><br> 
 </form>
 <h1>Users who like this Book:</h1>
 {% for user in book_likers %}
     <p> {{ user.first_name }} </p>
     {% if current_user.first_name == user.first_name %}
-    <a href= "http://localhost:8000/unfavorite/{{ clicked_book.id }}">Unfavorite</a>
+    <a href= "/unfavorite/{{ clicked_book.id }}">Unfavorite</a>
     {% endif %} 
 {% endfor %}
 </body>

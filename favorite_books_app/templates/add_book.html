@@ -11,7 +11,7 @@
 <body>
 <header id="add-header">
     <h1 id="welcome-add">Welcome, {{ current_user.first_name }}</h1>
-    <a id = "logout-add" href="http://localhost:8000/logout">Logout</a>
+    <a id = "logout-add" href="/logout">Logout</a>
 </header>
 <h1>Add a Favorite Book</h1>
 {% if messages %}
@@ -36,21 +36,21 @@
             <h1>All Books </h1>
                 {% for book in all_books %}
                     {% if current_user.first_name == book.upload_status.first_name and current_user in book.users.all %} 
-                        <a class = "bold" href = "http://localhost:8000/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
+                        <a class = "bold" href = "/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
                         <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>
                         <p class = "sub">"{{ book.description }}"</p>
                         <p class = "sub" class="italics">This is one of your favorites</p>
                     {% elif current_user in book.users.all %}
-                        <a class = "bold" href = "http://localhost:8000/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
+                        <a class = "bold" href = "/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
                         <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>
                         <p class = "sub">"{{ book.description }}"</p>
                         <p class = "sub" class="italics">This is one of your favorites</p>
                     {% else %}
-                        <a class = "bold" href = "http://localhost:8000/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
+                        <a class = "bold" href = "/was_favorited_check/{{ book.id }}">"{{ book.title }}"</a>
                         <p class = "sub"> uploaded by {{ book.upload_status.first_name}}</p>
                         <p class = "sub">"{{ book.description }}"</p>
                         <div id="view-links">
-                        <a href = "http://localhost:8000/add_favorite_book/{{ book.id }} ">Add to favorites</a> 
+                        <a href = "/add_favorite_book/{{ book.id }} ">Add to favorites</a> 
                         </div>
                     {% endif %}
                 {% endfor %}
