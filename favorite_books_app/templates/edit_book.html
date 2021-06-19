@@ -30,7 +30,7 @@
     <p class = "description">Description:</p>
     <textarea name="description">{{ clicked_book.description }}</textarea>
     <br><br> 
-    <input type="submit" value="Update" id = "button"> | <a href= "http://localhost:8000/delete">Delete</a>
+    <input type="submit" name ="update-btn" value="Update" id = "button"> | <a href= "http://localhost:8000/delete/{{ clicked_book.id }}">Delete</a>
     <br><br> 
 </form>
 <h1>Users who like this Book:</h1>

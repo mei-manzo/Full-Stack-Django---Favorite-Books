@@ -130,11 +130,16 @@ def was_favorited_check(request, id):
         return redirect (f"/books/{id}")
 
 def delete(request, id):
-    if request.method == 'GET':
-        d = Book.objects.get(id=id)
-        d.delete()
-        return redirect('books')
-    return redirect('books')
+    if 'user_id' not in request.session:
+        return redirect('/')
+    clicked_book = Book.objects.get(id=id)
+    this_user = User.objects.filter(id = request.session['user_id'])
+    current_user = this_user[0]
+    if current_user.id != clicked_book.upload_status.id:
+        return redirect('/')
+    d = Book.objects.get(id=id)
+    d.delete()
+    return redirect('/books')
 
 def unfavorite(request, id):
     if 'user_id' not in request.session:
